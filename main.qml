@@ -73,27 +73,34 @@ Window {
             State {
                 name: "zigzag"
                 PropertyChanges { target: pl1; x: 85; y: 340; }
-                PropertyChanges { target: pl2; x: 260; y: 240; }
-                PropertyChanges { target: pl3; x: 260; y: 440; }
-
+                PropertyChanges { target: pl2; x: 240; y: 245; }
+                PropertyChanges { target: pl3; x: 240; y: 435; }
             },
             State {
                 name: "close"
-                PropertyChanges { target: pathLines; startX: pathView.width/2; startY: pathView.height * 0.75; }
-                PropertyChanges { target: pl1; x: pathView.width/2; y: pathView.height * 0.75; }
-                PropertyChanges { target: pl2; x: pathView.width/2; y: pathView.height * 0.75; }
-                PropertyChanges { target: pl3; x: pathView.width/2; y: pathView.height * 0.75; }
-                PropertyChanges { target: pl4; x: pathView.width/2; y: pathView.height * 0.75; }
-                PropertyChanges { target: pl5; x: (pathView.width/2) + 1; y: pathView.height * 0.75; } // Note: "+1" to fix disappearance bug
+                PropertyChanges { target: pl1; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl2; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl3; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl4; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl5; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl6; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl7; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl8; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl9; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
+                PropertyChanges { target: pl10; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.75; }
             },
             State {
                 name: "open"
-                PropertyChanges { target: pathLines; startX: pathView.width/2; startY: pathView.height/4; }
-                PropertyChanges { target: pl1; x: pathView.width/2; y: pathView.height/4; }
-                PropertyChanges { target: pl2; x: pathView.width/2; y: pathView.height/4; }
-                PropertyChanges { target: pl3; x: pathView.width/2; y: pathView.height/4; }
-                PropertyChanges { target: pl4; x: pathView.width/2; y: pathView.height/4; }
-                PropertyChanges { target: pl5; x: pathView.width/2 + 1; y: pathView.height/4; } // Note: "+1" to fix disappearance bug
+                PropertyChanges { target: pl1; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl2; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl3; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl4; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl5; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl6; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl7; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl8; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl9; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
+                PropertyChanges { target: pl10; x: (pathView.width/2)-(delegateWidth/2); y: pathView.height * 0.25; }
             },
             State {
                 name: "triangle"
@@ -149,8 +156,8 @@ Window {
         Repeater {
             id: repeater
             delegate: Rectangle {
-                width: 200
-                height: 180
+                width: delegateWidth
+                height: delegateHeight
                 x: pathView.paths[index].x
                 y: pathView.paths[index].y
 
@@ -190,6 +197,8 @@ Window {
 
 
 
+    property int delegateWidth: 200
+    property int delegateHeight: 180
 
 
 }
