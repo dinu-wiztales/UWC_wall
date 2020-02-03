@@ -15,25 +15,12 @@ Window {
 
     Rectangle {
         anchors.fill: parent
-//        color: "tranparent"
         AnimatedImage {
-            anchors.fill:parent
-            source: "file:///C:/Users/Wiztales/Documents/build-UWC_disclosure-Desktop_Qt_5_14_0_MinGW_64_bit-Debug/UWC/Hexagons.gif"
+            anchors.fill: parent
+            source:  "file:./UWC/Hexagons.gif"
             playing: true
-//            paused: false
         }
     }
-
-    property var _centerText : ""
-//    Rectangle {
-//        anchors.fill: parent
-//        color: "transparent"
-//        AnimatedImage {
-//            anchors.fill: parent
-//            source: "file:///C:/Users/Wiztales/Documents/build-UWC_disclosure-Desktop_Qt_5_14_0_MinGW_64_bit-Debug/UWC/Hexagons_front.gif"
-//            paused: true
-//        }
-//    }
 
 
 
@@ -48,7 +35,6 @@ Window {
 
         var path = "UWC/" +  currentPath.join("/")
         return fileManager.folderCount(path)
-//        return 10
     }
 
     function reload(){
@@ -57,27 +43,17 @@ Window {
     }
 
 
-    Component.onCompleted:{
-
-//        reload()
-//        var data = currentPath
-//        console.log(data.length)
-}
+    Component.onCompleted:reload()
 
 
-
-
-//    GridView {
-    PathView {
+    Rectangle {
         id: pathView
-//        visible: false
         anchors.fill: parent
-        anchors.margins: 100
+        anchors.margins: 50
 
-//        model: 3
+        color: 'transparent'
 
-
-        path: Path {
+        Path {
             id: pathLines
             PathLine { id: pl1 }
             PathLine { id: pl2 }
@@ -88,34 +64,18 @@ Window {
             PathLine { id: pl7 }
             PathLine { id: pl8 }
             PathLine { id: pl9 }
+            PathLine { id: pl10 }
         }
 
-        model: 2
         state: 'zigzag'
 
         states: [
             State {
                 name: "zigzag"
-                PropertyChanges { target: pathLines; startX: 195; startY: 435; }
-//                PropertyChanges { target: pl1; x: 370; y: 335; }
-//                PropertyChanges { target: pl2; x: 370; y: 575; }
-//                PropertyChanges { target: pl3; x: 540; y: 450; }
-//                PropertyChanges { target: pl4; x: 545; y: 250; }
-//                PropertyChanges { target: pl5; x: 725; y: 345; }
-//                PropertyChanges { target: pl6; x: 725; y: 545; }
-//                PropertyChanges { target: pl7; x: 900; y: 440; }
-//                PropertyChanges { target: pl8; x: 910; y: 250; }
-//                PropertyChanges { target: pl9; x: 1075; y: 340; }
+                PropertyChanges { target: pl1; x: 85; y: 340; }
+                PropertyChanges { target: pl2; x: 260; y: 240; }
+                PropertyChanges { target: pl3; x: 260; y: 440; }
 
-                PropertyChanges { target: pl1; relativeX: 175; relativeY: -100; }
-                PropertyChanges { target: pl2; relativeX: 0; relativeY: 240; }
-//                PropertyChanges { target: pl3; x: 540; y: 450; }
-//                PropertyChanges { target: pl4; x: 545; y: 250; }
-//                PropertyChanges { target: pl5; x: 725; y: 345; }
-//                PropertyChanges { target: pl6; x: 725; y: 545; }
-//                PropertyChanges { target: pl7; x: 900; y: 440; }
-//                PropertyChanges { target: pl8; x: 910; y: 250; }
-//                PropertyChanges { target: pl9; x: 1075; y: 340; }
             },
             State {
                 name: "close"
@@ -150,12 +110,7 @@ Window {
         transitions: [
            Transition {
                 to: 'zigzag'
-                SmoothedAnimation { properties: "x,y,startX,startY"; easing.type: Easing.InOutQuad; duration: 500; onFinished:{
-
-//                        pathView.state = 'triangle'
-//                        reload()
-                    }
-                }
+                SmoothedAnimation { properties: "x,y,startX,startY"; easing.type: Easing.InOutQuad; duration: 500; }
             },
             Transition {
                 to: 'triangle'
@@ -182,44 +137,6 @@ Window {
         ]
 
 
-        delegate: Rectangle {
-            width: 200
-            height: 180
-            color: 'transparent'
-            Image {
-                anchors.fill: parent
-//                anchors.margins: 20
-//                sourceSize.width: width
-//                sourceSize.height: height
-                property url path: "file:./UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".png"
-                source: path
-//                asynchronous: true
-
-            }
-
-            Text {
-                id:textData
-                anchors.centerIn: parent
-                text: fileManager.getText("UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".txt")
-                font.pointSize: 30
-                color: "white"
-                visible: pathView.state == "open" || pathView.state == "close" ? false : true
-
-            }
-
-
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    _centerText = textData.text
-                    var path_data = currentPath
-                    currentPath.push(String(index+1))
-                    pathView.state = 'close'
-                }
-            }
-        }
-
         MouseArea {
             anchors.fill: parent
             onClicked: {
@@ -227,11 +144,50 @@ Window {
                 reload()
             }
         }
+
+        property var paths: [pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8, pl9, pl10]
+        Repeater {
+            model: 3
+
+            delegate: Rectangle {
+                width: 200
+                height: 180
+                x: pathView.paths[index].x
+                y: pathView.paths[index].y
+
+                color: 'transparent'
+                Image {
+                    anchors.fill: parent
+                    // anchors.margins: 20
+                    // sourceSize.width: width
+                    // sourceSize.height: height
+                    property url path: "file:./UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".png"
+                    source: path
+                    // asynchronous: true
+                }
+
+                Text {
+                    id:textData
+                    anchors.centerIn: parent
+                    text: fileManager.getText("UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".txt")
+                    font.pointSize: 30
+                    color: "white"
+                    visible: pathView.state == "open" || pathView.state == "close" ? false : true
+
+                }
+
+
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        currentPath.push(String(index+1))
+                        pathView.state = 'close'
+                    }
+                }
+            }
+        }
     }
-
-//    Rectangle {
-
-//    }
 
 
 
