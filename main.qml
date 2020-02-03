@@ -172,7 +172,6 @@ Window {
                     font.pointSize: 30
                     color: "white"
                     visible: pathView.state == "open" || pathView.state == "close" ? false : true
-
                 }
 
 
