@@ -152,6 +152,7 @@ Window {
                 } else {
                     currentPath.pop()
                     reload()
+                    pathView.state = 'zigzag'
                 }
             }
         }
