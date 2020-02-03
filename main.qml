@@ -147,8 +147,12 @@ Window {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                currentPath.pop()
-                reload()
+                if (finalBigRectangle.visible) {
+                    finalBigRectangle.visible = false
+                } else {
+                    currentPath.pop()
+                    reload()
+                }
             }
         }
 
@@ -186,14 +190,30 @@ Window {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        currentPath.push(String(index+1))
-                        pathView.state = 'close'
+                        if (currentPath.length == 1) {
+                            finalBigRectangle.visible = true
+                        } else {
+                            currentPath.push(String(index+1))
+                            pathView.state = 'close'
+                        }
                     }
                 }
             }
         }
     }
 
+
+    Rectangle {
+        id: finalBigRectangle
+        anchors.fill: pathView
+        anchors.margins: 100
+
+        visible: false
+
+        color: 'red'
+
+        // Put Image or WebView or whatever here
+    }
 
 
 
