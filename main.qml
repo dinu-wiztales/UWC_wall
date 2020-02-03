@@ -38,8 +38,8 @@ Window {
     }
 
     function reload(){
-        pathView.model = 0
-        pathView.model = getCount()
+        repeater.model = 0
+        repeater.model = getCount()
     }
 
 
@@ -147,8 +147,7 @@ Window {
 
         property var paths: [pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8, pl9, pl10]
         Repeater {
-            model: 3
-
+            id: repeater
             delegate: Rectangle {
                 width: 200
                 height: 180
