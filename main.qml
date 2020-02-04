@@ -13,6 +13,11 @@ Window {
     height: 800
     title: qsTr("UWC")
 
+
+    FontLoader{id:gothic_regular; source: "file:./League-Gothic/LeagueGothic-Regular.otf"}
+    FontLoader{id:roboto_regular; source: "file:./roboto/Roboto-Regular.ttf" }
+    FontLoader{id:roboto_condensed; source: "file:./roboto/RobotoCondensed-Regular.ttf"}
+
     Rectangle {
         anchors.fill: parent
         AnimatedImage {
@@ -75,6 +80,13 @@ Window {
                 PropertyChanges { target: pl1; x: 85; y: 340; }
                 PropertyChanges { target: pl2; x: 240; y: 245; }
                 PropertyChanges { target: pl3; x: 240; y: 435; }
+                PropertyChanges { target: pl4; x: 395; y: 340; }
+                PropertyChanges { target: pl5; x: 395; y: 155; }
+                PropertyChanges { target: pl6; x: 550; y: 250; }
+                PropertyChanges { target: pl7; x: 550; y: 435; }
+                PropertyChanges { target: pl8; x: 705; y: 345; }
+                PropertyChanges { target: pl9; x: 705; y: 160; }
+                PropertyChanges { target: pl10; x: 860; y: 250; }
             },
             State {
                 name: "close"
@@ -104,12 +116,16 @@ Window {
             },
             State {
                 name: "triangle"
-                PropertyChanges { target: pathLines; startX: 200; startY: 500; }
-                PropertyChanges { target: pl1; x: 400; y: 700; }
-                PropertyChanges { target: pl2; x: 600; y: 500; }
-                PropertyChanges { target: pl3; x: 350; y: 500; }
-                PropertyChanges { target: pl4; x: 300; y: 500; }
-                PropertyChanges { target: pl5; x: 250; y: 500; }
+                PropertyChanges { target: pl1; x: 500; y: 200; }
+                PropertyChanges { target: pl2; x: 660; y: 295; }
+                PropertyChanges { target: pl3; x: 340; y: 105; }
+                PropertyChanges { target: pl4; x: 820; y: 200; }
+                PropertyChanges { target: pl5; x: 180; y: 13; }
+                PropertyChanges { target: pl6; x: 185; y: 200; }
+                PropertyChanges { target: pl7; x: 30; y: 290; }
+                PropertyChanges { target: pl8; x: 820; y: 385; }
+                PropertyChanges { target: pl9; x: 665; y: 480; }
+                PropertyChanges { target: pl10; x: 29; y: 106; }
             }
 
         ]
@@ -181,9 +197,10 @@ Window {
                     id:textData
                     anchors.centerIn: parent
                     text: fileManager.getText("UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".txt")
-                    font.pointSize: 30
+                    font.pointSize: 26
                     color: "white"
                     visible: pathView.state == "open" || pathView.state == "close" ? false : true
+                    font.family: roboto_condensed.name
                 }
 
 
@@ -208,10 +225,11 @@ Window {
         id: finalBigRectangle
         anchors.fill: pathView
         anchors.margins: 100
-
         visible: false
-
         color: 'red'
+
+
+
 
         // Put Image or WebView or whatever here
     }
