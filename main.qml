@@ -2,8 +2,8 @@ import QtQuick 2.14
 import QtQuick.Window 2.12
 //import QtQuick.VirtualKeyboard 2.4
 import QtWebView 1.1
-import QtWebEngine 1.8
-import QtMultimedia 5.12
+//import QtWebEngine 1.8
+//import QtMultimedia 5.12
 import FileManager 1.0
 
 import QtQuick.Controls 2.5
@@ -26,7 +26,7 @@ Window {
 
     Rectangle {
         anchors.fill: parent
-        color: "black"
+//        color: "black"
 
         //        Video {
         //            anchors.fill: parent
@@ -37,7 +37,7 @@ Window {
 
                 AnimatedImage {
                     anchors.fill: parent
-                    source:  "file:./UWC/bg_1.gif"
+                    source:  "file:./UWC/particle.gif"
                     playing: true
                 }
     }
@@ -73,6 +73,7 @@ Window {
             text: qsTr("Journey of 10 years")
             font.family: gothic_regular.name
             font.pointSize: 50
+            color: "white"
 
             states: [
                 State {
@@ -277,17 +278,17 @@ Window {
         ]
 
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
+//        MouseArea {
+//            anchors.fill: parent
+//            onClicked: {
 
-                    currentPath.pop()
-                    reload()
-                    pathView.state = 'zigzag'
-                    headImage.state = "middle"
-                    headText.state = "appeared"
-            }
-        }
+//                    currentPath.pop()
+//                    reload()
+//                    pathView.state = 'zigzag'
+//                    headImage.state = "middle"
+//                    headText.state = "appeared"
+//            }
+//        }
 
         property var paths: [pl1, pl2, pl3, pl4, pl5, pl6, pl7, pl8, pl9, pl10]
         Repeater {
@@ -336,11 +337,12 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         if (currentPath.length == 1) {
-                            webView.reload()
+//                            webView.reload()
                             webLink =   "file:///C:/Users/Wiztales/Documents/build-UWC_disclosure-Desktop_Qt_5_14_0_MSVC2017_64bit-Release/website/"+(currentPath.length  ? currentPath.join("/") + "/"  : "" )+(index)+".html"
                             finalBigRectangle.state= "moved"
 
                         } else {
+                            closeAll.visible = true
                             headImage.state = "side"
                             headText.state= "vanish"
                             currentPath.push(String(index+1))
@@ -353,22 +355,61 @@ Window {
     }
 
 
+
+    Rectangle {
+
+        id: closeAll
+        anchors.right: parent.right
+        visible: false
+        anchors.rightMargin: 50
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 50
+        color: "#696969"
+        width: 100
+        height: 100
+        radius:100
+        Text {
+            anchors.centerIn: parent
+            text: qsTr("BACK")
+            font.family: roboto_condensed.name
+            color: "black"
+            font.pointSize: 16
+        }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+
+                        currentPath.pop()
+                        reload()
+                        pathView.state = 'zigzag'
+                        headImage.state = "middle"
+                        headText.state = "appeared"
+                        closeAll.visible = false
+                }
+            }
+    }
+
+
+
+
+
     Rectangle {
         id: finalBigRectangle
         opacity: 1
         anchors.centerIn : parent
 //        anchors.bottom: parent.bottom
 //        anchors.left: parent.left
-        color: 'transparent'
+        color: 'black'
         width: 0
         height: 0
 
 //        Component.onCompleted: width = 0
 
-        WebEngineView{
+        WebView{
             id:webView
             anchors.fill: parent
             url: webLink
+            Component.onCompleted: webView.reload()
 //            width: 0
 //            height: /0
 
@@ -377,7 +418,7 @@ Window {
         Rectangle {
             anchors.right: parent.right
             anchors.bottom: parent.bottom
-            color: "red"
+            color: "#696969"
             width: finalBigRectangle.width == 0? 0 : 50
             height: finalBigRectangle.width == 0? 0 : 50
             MouseArea {
@@ -393,6 +434,7 @@ Window {
             State {
                 name: "moved"
                 PropertyChanges {
+
                     target: finalBigRectangle;
                     width: pathView.width;
                     height: pathView.height;
@@ -412,7 +454,7 @@ Window {
         ]
         transitions:[
             Transition {
-                PropertyAnimation {  properties: "width,radius,height"; easing.type: Easing.InOutQuad; duration: 1000}
+                PropertyAnimation {  properties: "width,radius,height"; easing.type: Easing.InOutQuad; duration: 300}
 
 
             }
