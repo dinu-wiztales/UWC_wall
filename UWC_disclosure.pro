@@ -1,4 +1,4 @@
-QT += quick virtualkeyboard webengine
+QT += quick virtualkeyboard webview
 
 CONFIG += c++11
 

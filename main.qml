@@ -1,7 +1,9 @@
 import QtQuick 2.14
 import QtQuick.Window 2.12
-import QtQuick.VirtualKeyboard 2.4
-
+//import QtQuick.VirtualKeyboard 2.4
+import QtWebView 1.1
+import QtWebEngine 1.8
+import QtMultimedia 5.12
 import FileManager 1.0
 
 import QtQuick.Controls 2.5
@@ -9,6 +11,7 @@ import QtQuick.Controls 2.5
 Window {
     id: window
     visible: true
+    //    visibility: "FullScreen"
     width: 1280
     height: 800
     title: qsTr("UWC")
@@ -18,14 +21,29 @@ Window {
     FontLoader{id:roboto_regular; source: "file:./roboto/Roboto-Regular.ttf" }
     FontLoader{id:roboto_condensed; source: "file:./roboto/RobotoCondensed-Regular.ttf"}
 
+
+    property url webLink
+
     Rectangle {
         anchors.fill: parent
-        AnimatedImage {
-            anchors.fill: parent
-            source:  "file:./UWC/Hexagons.gif"
-            playing: true
-        }
+        color: "black"
+
+        //        Video {
+        //            anchors.fill: parent
+        //            source: "file:///D:/Downloads/UWC_Work_Files/Particles - 323.mp4"
+        //            autoPlay: true
+        //            loops: 200
+        //        }
+
+                AnimatedImage {
+                    anchors.fill: parent
+                    source:  "file:./UWC/bg_1.gif"
+                    playing: true
+                }
     }
+
+
+
 
 
 
@@ -35,6 +53,105 @@ Window {
     FileManager {
         id: fileManager
     }
+
+//    Row {
+
+
+//        anchors.top: parent.top
+//        anchors.topMargin: 30
+//        anchors.left: parent.left
+//        anchors.leftMargin: parent.width/2 - 100
+        //        anchors.verticalCenter: parent
+//        spacing: 40
+
+
+        Text {
+            id: headText
+            x : 400
+            y : 30
+            opacity: 1
+            text: qsTr("Journey of 10 years")
+            font.family: gothic_regular.name
+            font.pointSize: 50
+
+            states: [
+                State {
+                    name: "vanish"
+                    PropertyChanges {
+                        target: headText
+                        opacity : 0
+
+                    }
+
+                },
+                State {
+                    name: "appeared"
+                    PropertyChanges {
+                        target: headText
+                        opacity: 1
+
+
+                    }
+                }
+            ]
+            Transition {
+                PropertyAnimation {  properties: "opacity"; easing.type: Easing.bezierCurve ; duration: 1000}
+            }
+
+//            Transition {
+//                from: "fromState"
+//                to: "toState"
+
+//            }
+
+        }
+
+
+        Image {
+            id: headImage
+            y : 10
+            x : 100
+            width: 266
+            height: 156
+            source: "file:./UWC/logo.png"
+
+
+            states: [
+                State {
+                    name: "side"
+                    PropertyChanges {
+                        target: headImage
+                        x : 1000
+
+                    }
+                },
+
+                State {
+                    name: "middle"
+                    PropertyChanges {
+                        target: headImage
+                        x : 100
+
+                    }
+                }
+
+            ]
+
+            transitions: [
+                Transition {
+                    PropertyAnimation {  properties: "x"; easing.type: Easing.InOutQuad; duration: 1000; onFinished: console.log("true")}
+
+
+                }
+
+            ]
+
+//            onStateChanged:  headText.opacity = !headText.opacity
+
+        }
+
+//    }
+
 
     function getCount(){
 
@@ -77,16 +194,16 @@ Window {
         states: [
             State {
                 name: "zigzag"
-                PropertyChanges { target: pl1; x: 85; y: 340; }
-                PropertyChanges { target: pl2; x: 240; y: 245; }
-                PropertyChanges { target: pl3; x: 240; y: 435; }
-                PropertyChanges { target: pl4; x: 395; y: 340; }
-                PropertyChanges { target: pl5; x: 395; y: 155; }
-                PropertyChanges { target: pl6; x: 550; y: 250; }
-                PropertyChanges { target: pl7; x: 550; y: 435; }
-                PropertyChanges { target: pl8; x: 705; y: 345; }
-                PropertyChanges { target: pl9; x: 705; y: 160; }
-                PropertyChanges { target: pl10; x: 860; y: 250; }
+                PropertyChanges { target: pl1; x: 85; y: 440; }
+                PropertyChanges { target: pl2; x: 240; y: 345; }
+                PropertyChanges { target: pl3; x: 240; y: 535; }
+                PropertyChanges { target: pl4; x: 395; y: 440; }
+                PropertyChanges { target: pl5; x: 395; y: 255; }
+                PropertyChanges { target: pl6; x: 550; y: 350; }
+                PropertyChanges { target: pl7; x: 550; y: 535; }
+                PropertyChanges { target: pl8; x: 705; y: 445; }
+                PropertyChanges { target: pl9; x: 705; y: 260; }
+                PropertyChanges { target: pl10; x: 860; y: 350; }
             },
             State {
                 name: "close"
@@ -116,22 +233,22 @@ Window {
             },
             State {
                 name: "triangle"
-                PropertyChanges { target: pl1; x: 500; y: 200; }
-                PropertyChanges { target: pl2; x: 660; y: 295; }
-                PropertyChanges { target: pl3; x: 340; y: 105; }
-                PropertyChanges { target: pl4; x: 820; y: 200; }
-                PropertyChanges { target: pl5; x: 180; y: 13; }
-                PropertyChanges { target: pl6; x: 185; y: 200; }
-                PropertyChanges { target: pl7; x: 30; y: 290; }
-                PropertyChanges { target: pl8; x: 820; y: 385; }
-                PropertyChanges { target: pl9; x: 665; y: 480; }
-                PropertyChanges { target: pl10; x: 29; y: 106; }
+                PropertyChanges { target: pl1; x: 500; y: 250; }
+                PropertyChanges { target: pl2; x: 660; y: 345; }
+                PropertyChanges { target: pl3; x: 340; y: 155; }
+                PropertyChanges { target: pl4; x: 820; y: 250; }
+                PropertyChanges { target: pl5; x: 180; y: 63; }
+                PropertyChanges { target: pl6; x: 185; y: 250; }
+                PropertyChanges { target: pl7; x: 30; y: 340; }
+                PropertyChanges { target: pl8; x: 820; y: 435; }
+                PropertyChanges { target: pl9; x: 665; y: 530; }
+                PropertyChanges { target: pl10; x: 29; y: 156; }
             }
 
         ]
 
         transitions: [
-           Transition {
+            Transition {
                 to: 'zigzag'
                 SmoothedAnimation { properties: "x,y,startX,startY"; easing.type: Easing.InOutQuad; duration: 500; }
             },
@@ -163,13 +280,12 @@ Window {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if (finalBigRectangle.visible) {
-                    finalBigRectangle.visible = false
-                } else {
+
                     currentPath.pop()
                     reload()
                     pathView.state = 'zigzag'
-                }
+                    headImage.state = "middle"
+                    headText.state = "appeared"
             }
         }
 
@@ -193,15 +309,26 @@ Window {
                     // asynchronous: true
                 }
 
-                Text {
-                    id:textData
-                    anchors.centerIn: parent
-                    text: fileManager.getText("UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".txt")
-                    font.pointSize: 26
-                    color: "white"
-                    visible: pathView.state == "open" || pathView.state == "close" ? false : true
-                    font.family: roboto_condensed.name
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.margins: 30
+                    color: "transparent"
+                    Text {
+                        id:textData
+                        anchors.centerIn:parent
+
+                        text: fileManager.getText("UWC/" +  (currentPath.length  ? currentPath.join("/") + "/"  : "" ) + String(index + 1) + ".txt")
+                        font.pointSize: currentPath.length == 0 ? 26 : 20
+                        wrapMode: Text.Wrap
+                        horizontalAlignment:Text.AlignHCenter
+                        color: currentPath.length == 0 ? "black" : "white"
+                        visible: pathView.state == "open" || pathView.state == "close" ? false : true
+                        font.family: roboto_condensed.name
+                        font.bold: true
+                    }
                 }
+
+
 
 
 
@@ -209,8 +336,13 @@ Window {
                     anchors.fill: parent
                     onClicked: {
                         if (currentPath.length == 1) {
-                            finalBigRectangle.visible = true
+                            webView.reload()
+                            webLink =   "file:///C:/Users/Wiztales/Documents/build-UWC_disclosure-Desktop_Qt_5_14_0_MSVC2017_64bit-Release/website/"+(currentPath.length  ? currentPath.join("/") + "/"  : "" )+(index)+".html"
+                            finalBigRectangle.state= "moved"
+
                         } else {
+                            headImage.state = "side"
+                            headText.state= "vanish"
                             currentPath.push(String(index+1))
                             pathView.state = 'close'
                         }
@@ -223,16 +355,79 @@ Window {
 
     Rectangle {
         id: finalBigRectangle
-        anchors.fill: pathView
-        anchors.margins: 100
-        visible: false
-        color: 'red'
+        opacity: 1
+        anchors.centerIn : parent
+//        anchors.bottom: parent.bottom
+//        anchors.left: parent.left
+        color: 'transparent'
+        width: 0
+        height: 0
+
+//        Component.onCompleted: width = 0
+
+        WebEngineView{
+            id:webView
+            anchors.fill: parent
+            url: webLink
+//            width: 0
+//            height: /0
+
+        }
+
+        Rectangle {
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            color: "red"
+            width: finalBigRectangle.width == 0? 0 : 50
+            height: finalBigRectangle.width == 0? 0 : 50
+            MouseArea {
+                anchors.fill: parent
+                onClicked: finalBigRectangle.state = "small"
+            }
+        }
 
 
 
+        states:[
 
-        // Put Image or WebView or whatever here
+            State {
+                name: "moved"
+                PropertyChanges {
+                    target: finalBigRectangle;
+                    width: pathView.width;
+                    height: pathView.height;
+//                    radius:
+
+                }
+            },
+            State {
+                name: "small"
+                PropertyChanges {
+                    target: finalBigRectangle; width: 0; height : 0;
+
+                }
+            }
+
+
+        ]
+        transitions:[
+            Transition {
+                PropertyAnimation {  properties: "width,radius,height"; easing.type: Easing.InOutQuad; duration: 1000}
+
+
+            }
+        ]
+
+
+        // Put Image or WebView or whatever
+
+
     }
+
+
+
+
+
 
 
 
