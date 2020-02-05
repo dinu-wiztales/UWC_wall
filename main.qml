@@ -116,7 +116,7 @@ Window {
             height: 156
             source: "file:./UWC/logo.png"
 
-
+            Component.onCompleted: console.log(String(repeater.width[0]))
             states: [
                 State {
                     name: "side"
@@ -294,12 +294,15 @@ Window {
         Repeater {
             id: repeater
             delegate: Rectangle {
-                width: delegateWidth
-                height: delegateHeight
+
+                width: currentPath.length == 1 ? index == 0 ? 260: delegateWidth : delegateWidth
+                height: currentPath.length == 1 ? index == 0 ? 240 : delegateHeight : delegateHeight
                 x: pathView.paths[index].x
                 y: pathView.paths[index].y
 
                 color: 'transparent'
+
+
                 Image {
                     anchors.fill: parent
                     // anchors.margins: 20
@@ -333,13 +336,18 @@ Window {
 
 
 
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         if (currentPath.length == 1) {
 //                            webView.reload()
-                            webLink =   "file:///C:/Users/Wiztales/Documents/build-UWC_disclosure-Desktop_Qt_5_14_0_MSVC2017_64bit-Release/website/"+(currentPath.length  ? currentPath.join("/") + "/"  : "" )+(index)+".html"
-                            finalBigRectangle.state= "moved"
+                            if(index != 0){
+
+                                webLink =   "file:///C:/Users/Wiztales/Documents/build-UWC_disclosure-Desktop_Qt_5_14_0_MSVC2017_64bit-Release/website/"+(currentPath.length  ? currentPath.join("/") + "/"  : "" )+(index)+".html"
+                                finalBigRectangle.state= "moved"
+                            }
+
 
                         } else {
                             closeAll.visible = true
@@ -421,6 +429,7 @@ Window {
             color: "#696969"
             width: finalBigRectangle.width == 0? 0 : 50
             height: finalBigRectangle.width == 0? 0 : 50
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: finalBigRectangle.state = "small"
@@ -465,7 +474,6 @@ Window {
 
 
     }
-
 
 
 
